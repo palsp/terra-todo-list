@@ -6,5 +6,13 @@
         "default": "terra1d5g6tsxw09jwr8a866jveu8pq369xkf268uxmu"
       }
     }
+  },
+  "localterra": {
+    "todo": {
+      "codeId": "3",
+      "contractAddresses": {
+        "default": "terra1sh36qn08g4cqg685cfzmyxqv2952q6r8gpczrt"
+      }
+    }
   }
 }

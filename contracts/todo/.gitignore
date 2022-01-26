@@ -1,4 +1,6 @@
 /target
 Cargo.lock
 
+artifacts/
+schema/
 .DS_Store
