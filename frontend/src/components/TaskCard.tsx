@@ -1,27 +1,28 @@
-import { Task } from "types/Task";
-
-import { get } from "settings";
 import { Card } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { useExecuteContract } from "hooks/useExecuteContract";
 import { useWallet } from "@terra-money/wallet-provider";
+
+import { Task } from "types/Task";
+import { get } from "settings";
+import { useExecuteContract } from "hooks/useExecuteContract";
+import { useAppDispatch, useQuery } from "hooks";
+import { updateTodo } from "store/todo-action";
 
 interface Props {
   task: Task;
 }
 
 const TaskCard: React.FC<Props> = ({ task }) => {
-  const {
-    network: { name },
-  } = useWallet();
-  const todoAddress = get(name, "todo");
+  const { network } = useWallet();
+  const todoAddress = get(network.name, "todo");
 
   const { execute } = useExecuteContract(todoAddress);
+  const dispatch = useAppDispatch();
+  const queryHooks = useQuery(network);
 
   const handleClick = async () => {
     try {
-      const resp = await execute({ toggle_complete_task: { id: task.id } });
-      console.log(resp);
+      await execute({ toggle_complete_task: { id: task.id } });
+      dispatch(updateTodo(todoAddress, task.id, queryHooks));
     } catch (err) {
       console.log(err);
     }

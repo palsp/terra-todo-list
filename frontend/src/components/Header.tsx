@@ -1,5 +1,6 @@
-import ConnectWallet from "components/ConnectWallet";
 import { makeStyles } from "@mui/styles";
+
+import ConnectWallet from "components/ConnectWallet";
 
 const useStyles = makeStyles(() => ({
   header: {

@@ -1,11 +1,22 @@
-import { getChainOptions, WalletProvider } from "@terra-money/wallet-provider";
+import {
+  getChainOptions,
+  useWallet,
+  WalletProvider,
+} from "@terra-money/wallet-provider";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { store } from "store";
 
 import { makeStyles } from "@mui/styles";
 
 import Header from "components/Header";
 import TodoForm from "components/TodoForm";
 import TodoList from "components/TodoList";
+import { get } from "settings";
+import { useAppDispatch, useQuery } from "hooks";
+
+import { fetchTodo } from "store/todo-action";
+import { useEffect } from "react";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -21,6 +32,17 @@ const useStyles = makeStyles(() => ({
 }));
 
 function App() {
+  const { network } = useWallet();
+  const todoContractAddress = get(network.name, "todo");
+
+  const queryHooks = useQuery(network);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchTodo(todoContractAddress, queryHooks));
+  }, [dispatch]);
+
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -37,7 +59,9 @@ function App() {
 getChainOptions().then((chainOptions) => {
   ReactDOM.render(
     <WalletProvider {...chainOptions}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </WalletProvider>,
     document.getElementById("root")
   );

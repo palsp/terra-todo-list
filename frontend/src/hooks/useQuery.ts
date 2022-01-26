@@ -1,15 +1,17 @@
 import { LCDClient } from "@terra-money/terra.js";
 import { NetworkInfo } from "@terra-money/wallet-provider";
-import { networks, DEFAULT_NETWORK } from "settings";
+import { get } from "settings";
 
 export type ConfigQuery = { config: {} };
 
 export type TaskQuery = { task: { id: string } };
 export type QueryMsg = ConfigQuery | TaskQuery;
 
+export type UseQueryResult = ReturnType<typeof useQuery>;
+
 export const useQuery = ({ name, chainID }: NetworkInfo) => {
   const lcd = new LCDClient({
-    URL: networks[name]?.lcd || networks[DEFAULT_NETWORK].lcd,
+    URL: get(name, "lcd"),
     chainID: chainID,
   });
 

@@ -1,10 +1,12 @@
 import { ChangeEventHandler, useState } from "react";
-import { Card } from "@mui/material";
+import { CircularProgress, Card } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+
 import { useWallet } from "@terra-money/wallet-provider";
-import { CircularProgress } from "@mui/material";
-import { DEFAULT_NETWORK, networks } from "settings";
+
+import { get } from "settings";
 import { useExecuteContract } from "hooks/useExecuteContract";
+
 const useStyles = makeStyles(() => ({
   input: {
     padding: "1rem",
@@ -26,7 +28,7 @@ export const TodoForm = () => {
   const {
     network: { name },
   } = useWallet();
-  const todoAddress = networks[name]?.todo || networks[DEFAULT_NETWORK].todo;
+  const todoAddress = get(name, "todo");
   const [content, setContent] = useState("");
   const [isLoading, setLoading] = useState(false);
   const { execute } = useExecuteContract(todoAddress);
