@@ -9,9 +9,9 @@
   },
   "localterra": {
     "todo": {
-      "codeId": "3",
+      "codeId": "4",
       "contractAddresses": {
-        "default": "terra1sh36qn08g4cqg685cfzmyxqv2952q6r8gpczrt"
+        "default": "terra1tndcaqxkpc5ce9qee5ggqf430mr2z3pefe5wj6"
       }
     }
   }

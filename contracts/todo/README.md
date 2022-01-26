@@ -1,5 +1,7 @@
 # Terra Todo List
 
+If you wish to deploy the contract manually, Please follow this guide.
+
 ## Build the Contract
 
 To build your contract, run the following command. This will check for any preliminary errors before optimizing.
