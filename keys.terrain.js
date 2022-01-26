@@ -6,6 +6,6 @@ module.exports = {
   "test-1": {
     // mnemonic:
     //   "satisfy adjust timber high purchase tuition stool faith fine install that you unaware feed domain license impose boss human eager hat rent enjoy dawn",
-    mnemonic: process.env.SECRET_PRIV_KEY,
+    mnemonic: process.env.SECRET_MENEMONIC,
   },
 };
