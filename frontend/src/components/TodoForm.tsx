@@ -2,7 +2,7 @@ import { ChangeEventHandler, useState } from "react";
 import { CircularProgress, Card } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
-import { useWallet } from "@terra-money/wallet-provider";
+import { useWallet, WalletStatus } from "@terra-money/wallet-provider";
 
 import { get } from "settings";
 import { useExecuteContract } from "hooks/useExecuteContract";
@@ -27,6 +27,7 @@ export const TodoForm = () => {
   const classes = useStyles();
   const {
     network: { name },
+    status,
   } = useWallet();
   const todoAddress = get(name, "todo");
   const [content, setContent] = useState("");
@@ -72,14 +73,18 @@ export const TodoForm = () => {
           onChange={handleChange}
         />
       )}
-      <button
-        type="button"
-        disabled={isLoading}
-        className={classes.btn}
-        onClick={handleSubmit}
-      >
-        ADD
-      </button>
+      {status === WalletStatus.WALLET_NOT_CONNECTED ? (
+        <p>Please connect the wallet</p>
+      ) : (
+        <button
+          type="button"
+          disabled={isLoading}
+          className={classes.btn}
+          onClick={handleSubmit}
+        >
+          ADD
+        </button>
+      )}
     </Card>
   );
 };
