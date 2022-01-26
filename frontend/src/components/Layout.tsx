@@ -4,12 +4,14 @@ import TodoForm from "components/TodoForm";
 import TodoList from "components/TodoList";
 const useStyles = makeStyles(() => ({
   container: {
-    margin: "10em",
+    margin: "100px",
   },
   main: {
     marginTop: "90px",
     width: "100%",
     minHeight: "calc(100vh - 88px)",
+    display: "flex",
+    flexDirection: "column",
   },
 }));
 const Layout = () => {

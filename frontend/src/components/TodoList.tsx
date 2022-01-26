@@ -4,6 +4,8 @@ import { Task, TaskParams } from "types/Task";
 import { useWallet } from "@terra-money/wallet-provider";
 import { DEFAULT_NETWORK, networks } from "settings";
 
+import TaskCard from "components/TaskCard";
+
 const TodoList = () => {
   const { network } = useWallet();
   const { name } = network;
@@ -45,11 +47,11 @@ const TodoList = () => {
   }, [taskCount]);
 
   return (
-    <div>
+    <>
       {tasks.map((task) => (
-        <p>{JSON.stringify(task)}</p>
+        <TaskCard task={task} />
       ))}
-    </div>
+    </>
   );
 };
 

@@ -1,20 +1,16 @@
 import { ChangeEventHandler, useState } from "react";
 import { Card } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { execute } from "api";
-import { Msg } from "@terra-money/terra.js";
-import {
-  useConnectedWallet,
-  useLCDClient,
-  useWallet,
-} from "@terra-money/wallet-provider";
+import { useWallet } from "@terra-money/wallet-provider";
+import { CircularProgress } from "@mui/material";
 import { DEFAULT_NETWORK, networks } from "settings";
+import { useExecuteContract } from "hooks/useExecuteContract";
 const useStyles = makeStyles(() => ({
   input: {
     padding: "1rem",
     border: "1px solid #ccc",
     borderRadius: "1rem",
-    width: "60%",
+    // width: "60%",
   },
 
   btn: {
@@ -32,23 +28,21 @@ export const TodoForm = () => {
   } = useWallet();
   const todoAddress = networks[name]?.todo || networks[DEFAULT_NETWORK].todo;
   const [content, setContent] = useState("");
-  const wallet = useConnectedWallet();
-  const { post } = useWallet();
+  const [isLoading, setLoading] = useState(false);
+  const { execute } = useExecuteContract(todoAddress);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) =>
     setContent(e.target.value);
 
   const handleSubmit = async () => {
-    if (!wallet) return;
-    const messages: Msg[] = [];
-    // execute(wallet.walletAddress, content);
-    messages.push(execute(wallet.walletAddress, todoAddress, content));
+    setLoading(true);
     try {
-      await post({
-        msgs: messages,
-      });
+      await execute({ create_task: { content } });
     } catch (err) {
       console.log(err);
+    } finally {
+      setContent("");
+      setLoading(false);
     }
   };
   return (
@@ -66,13 +60,22 @@ export const TodoForm = () => {
       }}
     >
       <h1>TODO</h1>
-      <input
-        type="text"
-        className={classes.input}
-        placeholder="enter task...."
-        onChange={handleChange}
-      />
-      <button type="button" className={classes.btn} onClick={handleSubmit}>
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <input
+          type="text"
+          className={classes.input}
+          placeholder="enter task...."
+          onChange={handleChange}
+        />
+      )}
+      <button
+        type="button"
+        disabled={isLoading}
+        className={classes.btn}
+        onClick={handleSubmit}
+      >
         ADD
       </button>
     </Card>

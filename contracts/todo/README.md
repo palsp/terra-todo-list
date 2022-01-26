@@ -117,7 +117,7 @@ terrad tx wasm execute terra10pyejy66429refv3g35g2t7am0was7ya7kz2a4 '{ "toggle_c
 ```
 
 ```
-terrad query wasm contract-store terra10pyejy66429refv3g35g2t7am0was7ya7kz2a4 '{"task":{ "id" : "1"}}'
+terrad query wasm contract-store terra1x57pg2vkmas9kur8av95x28xngdg8n5pgvqqaj '{"task":{ "id" : "1"}}'
 ```
 
 ### Query Config
