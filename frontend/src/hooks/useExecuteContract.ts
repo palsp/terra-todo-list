@@ -28,7 +28,7 @@ export const useExecuteContract = (contractAddress: string) => {
       msg
     );
 
-    await post({ msgs: [message] });
+    return post({ msgs: [message] });
   };
 
   return { execute };

@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
     padding: "1rem",
     border: "1px solid #ccc",
     borderRadius: "1rem",
-    // width: "60%",
+    width: "60%",
   },
 
   btn: {

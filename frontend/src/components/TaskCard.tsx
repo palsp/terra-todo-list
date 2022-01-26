@@ -20,7 +20,8 @@ const TaskCard: React.FC<Props> = ({ task }) => {
 
   const handleClick = async () => {
     try {
-      await execute({ toggle_complete_task: { id: task.id } });
+      const resp = await execute({ toggle_complete_task: { id: task.id } });
+      console.log(resp);
     } catch (err) {
       console.log(err);
     }
