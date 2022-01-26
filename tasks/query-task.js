@@ -1,7 +1,9 @@
 const { task } = require("@iboss/terrain");
+const { prompt } = require("./helper");
 
-task(async ({ wallets, refs, config, client }) => {
+task(async ({ client }) => {
   // your logic here
-  const t = await client.query("todo", { task: { id: "1" } });
+  const id = await prompt("id ? >>  ");
+  const t = await client.query("todo", { task: { id } });
   console.log("task", t);
 });
