@@ -38,7 +38,7 @@ export const fetchTodoAPI = async (
     config: {},
   });
   const promises = [];
-  for (let i = 1; i < +task_count; i++) {
+  for (let i = 1; i <= +task_count; i++) {
     promises.push(
       query<TaskParams>(contract, {
         task: { id: i.toString() },
